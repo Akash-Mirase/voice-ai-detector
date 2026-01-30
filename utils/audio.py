@@ -3,18 +3,12 @@ import numpy as np
 import librosa
 import io
 
+
 def load_and_preprocess(audio_bytes):
-    audio = AudioSegment.from_file(io.BytesIO(audio_bytes), format="mp3")
-    audio = audio.set_channels(1)
+    audio_io = io.BytesIO(audio_bytes)
 
-    y = np.array(audio.get_array_of_samples()).astype(np.float32)
-    if np.max(np.abs(y)) > 0:
-        y = y / np.max(np.abs(y))
+    MAX_DURATION = 10  # seconds (IMPORTANT)
 
-    sr = audio.frame_rate
-    if sr != 16000:
-        y = librosa.resample(y, orig_sr=sr, target_sr=16000)
-        sr = 16000
+    y, sr = librosa.load(audio_io, sr=16000, mono=True, duration=MAX_DURATION)
 
-    y, _ = librosa.effects.trim(y, top_db=25)
     return y, sr
