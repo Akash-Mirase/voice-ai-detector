@@ -1,9 +1,9 @@
-# 🎙️ AI-Generated Voice Detection API
+#  AI-Generated Voice Detection API
 
-## 📌 Problem Statement
+##  Problem Statement
 Design and deploy a REST API that detects whether a given voice sample is AI-generated or spoken by a real human. The API must support multiple languages, accept MP3 audio input, and return a structured JSON response with a confidence score.
 
-## 🚀 Solution Overview
+##  Solution Overview
 This project implements a machine-learning–based voice detection API. The system analyzes acoustic characteristics of speech and classifies the input as AI_GENERATED or HUMAN.
 
 Key Highlights:
@@ -14,7 +14,7 @@ Key Highlights:
 - Includes basic explainability
 - Secure via API key authentication
 
-## 🌐 Supported Languages
+##  Supported Languages
 - Tamil
 - English
 - Hindi
@@ -23,7 +23,7 @@ Key Highlights:
 
 The model is language-agnostic and operates on audio signal features.
 
-## 🧠 Technical Approach
+##  Technical Approach
 
 Audio Processing:
 - Audio decoding and preprocessing
@@ -43,13 +43,13 @@ Machine Learning:
   - AI-generated voice samples (TTS)
 - Output: Class label with probability (confidence score)
 
-## 🔐 Authentication
+##  Authentication
 The API is protected using an API key.  
 The API key must be provided in the request header:
 
 x-api-key
 
-## 📡 API Specification
+##  API Specification
 
 Endpoint:
 POST /api/voice-detection
@@ -74,10 +74,10 @@ Response Body:
   "explanation": "Natural speech variability and human-like prosody detected"
 }
 
-## 🧪 Testing & Validation
+##  Testing & Validation
 Swagger UI (/docs) is provided only for testing and documentation. Swagger is not the final submission. The deployed API endpoint is used by the hackathon Endpoint Tester and evaluation system.
 
-## ⚙️ Technology Stack
+##  Technology Stack
 Backend API: FastAPI  
 ML Framework: scikit-learn  
 Audio Processing: librosa, numpy  
@@ -85,7 +85,7 @@ Model Serialization: joblib
 Deployment: Render  
 Programming Language: Python  
 
-## 📂 Project Structure
+##  Project Structure
 voice-ai-detector/
 ├── app.py                  # FastAPI application
 ├── train_model.py          # ML model training
@@ -101,7 +101,7 @@ voice-ai-detector/
 │   └── features.py         # Feature extraction
 └── README.md
 
-## ✅ Compliance with Hackathon Rules
+##  Compliance with Hackathon Rules
 - No hard-coded logic
 - No external AI-detection APIs
 - ML-based classification
@@ -109,10 +109,10 @@ voice-ai-detector/
 - Proper JSON response structure
 - Stateless API (no database required)
 
-## 🏁 Conclusion
+##  Conclusion
 This project delivers a robust, scalable, and compliant solution for detecting AI-generated voice samples. It strictly follows the problem requirements and is ready for hackathon evaluation and deployment.
 
-## 👤 Author
-Akash Mirase  
-Second-Year Computer Engineering Student  
+##  Author
+Akash Mirase , Varadraj Patil
+Second-Year Computer Engineering Students 
 VIT Pune
