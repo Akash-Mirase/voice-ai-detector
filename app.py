@@ -7,9 +7,7 @@ import os
 from utils.audio import load_and_preprocess
 from utils.features import extract_features
 
-# --------------------------------------------------
 # App Setup
-# --------------------------------------------------
 app = FastAPI(
     title="AI-Generated Voice Detection API",
     description="Detects whether a given voice sample is AI-generated or Human",
@@ -22,9 +20,9 @@ API_KEY = os.getenv("API_KEY", "testkey")
 model = joblib.load("model/detector.pkl")
 
 
-# --------------------------------------------------
+
 # Request & Response Models (AS PER DOCUMENT)
-# --------------------------------------------------
+
 class VoiceDetectionRequest(BaseModel):
     language: str
     audioFormat: str
@@ -39,9 +37,9 @@ class VoiceDetectionResponse(BaseModel):
     explanation: str
 
 
-# --------------------------------------------------
+
 # Utility: Run ML inference
-# --------------------------------------------------
+
 def run_inference(audio_bytes: bytes):
     y, sr = load_and_preprocess(audio_bytes)
     features = extract_features(y, sr)
@@ -56,38 +54,38 @@ def run_inference(audio_bytes: bytes):
     return prediction, confidence
 
 
-# --------------------------------------------------
+
 # OFFICIAL ENDPOINT (SUBMISSION ENDPOINT)
-# --------------------------------------------------
+
 @app.post("/api/voice-detection", response_model=VoiceDetectionResponse)
 def detect_voice(
     request: VoiceDetectionRequest, x_api_key: str = Header(None, alias="x-api-key")
 ):
-    # ---------------- AUTH ----------------
+    #  AUTH 
     if x_api_key is None or x_api_key != API_KEY:
         raise HTTPException(
             status_code=401, detail="Invalid API key or unauthorized request"
         )
 
-    # ---------------- VALIDATION ----------------
+    #  VALIDATION 
     if request.audioFormat.lower() != "mp3":
         raise HTTPException(
             status_code=400, detail="Only MP3 audio format is supported"
         )
 
-    # ---------------- BASE64 DECODE ----------------
+    #  BASE64 DECODE 
     try:
         audio_bytes = base64.b64decode(request.audioBase64)
     except Exception:
         raise HTTPException(status_code=400, detail="Invalid Base64 audio input")
 
-    # ---------------- INFERENCE ----------------
+    #  INFERENCE 
     try:
         pred, conf = run_inference(audio_bytes)
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Audio processing failed: {e}")
 
-    # ---------------- RESULT MAPPING ----------------
+    #  RESULT MAPPING 
     classification = "AI_GENERATED" if pred == 1 else "HUMAN"
 
     # Simple explainability (acceptable as per problem)
